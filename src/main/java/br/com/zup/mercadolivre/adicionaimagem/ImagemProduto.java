@@ -1,4 +1,4 @@
-package br.com.zup.mercadolivre.cadastraprodutos;
+package br.com.zup.mercadolivre.adicionaimagem;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +10,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.URL;
+
+import br.com.zup.mercadolivre.cadastraprodutos.Produto;
 
 @Entity
 public class ImagemProduto {

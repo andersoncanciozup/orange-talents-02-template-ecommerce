@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -16,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -26,9 +23,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.util.Assert;
 
-import com.deveficiente.desafiomercadolivre.adicionaopiniao.Opiniao;
-import com.deveficiente.desafiomercadolivre.adicionapergunta.Pergunta;
-
+import br.com.zup.mercadolivre.adicionaimagem.ImagemProduto;
 import br.com.zup.mercadolivre.cadastraousuario.Usuario;
 import br.com.zup.mercadolivre.cadastrocategorias.Categoria;
 
@@ -58,12 +53,12 @@ public class Produto {
 	// 1
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
 	private Set<ImagemProduto> imagens = new HashSet<>();
-	
-	@OneToMany(mappedBy = "produto")
-	@OrderBy("titulo asc")
-	private SortedSet<Pergunta> perguntas = new TreeSet<>();
-	@OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
-	private Set<Opiniao> opinioes = new HashSet<>();
+
+//	@OneToMany(mappedBy = "produto")
+//	@OrderBy("titulo asc")
+//	private SortedSet<Pergunta> perguntas = new TreeSet<>();
+//	@OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+//	private Set<Opiniao> opinioes = new HashSet<>();
 
 	@Deprecated
 	public Produto() {
@@ -167,14 +162,14 @@ public class Produto {
 				.collect(Collectors.toSet());
 	}
 	
-	public <T extends Comparable<T>> SortedSet<T> mapeiaPerguntas(Function<Pergunta, T> funcaoMapeadora) {
-		return this.perguntas.stream().map(funcaoMapeadora)
-				.collect(Collectors.toCollection(TreeSet :: new));
-	}
-
-	public Opinioes getOpinioes() {
-		return new Opinioes(this.opinioes);
-	}
+//	public <T extends Comparable<T>> SortedSet<T> mapeiaPerguntas(Function<Pergunta, T> funcaoMapeadora) {
+//		return this.perguntas.stream().map(funcaoMapeadora)
+//				.collect(Collectors.toCollection(TreeSet :: new));
+//	}
+//
+//	public Opinioes getOpinioes() {
+//		return new Opinioes(this.opinioes);
+//	}
 
 	public boolean abataEstoque(@Positive int quantidade) {
 		Assert.isTrue(quantidade > 0, "A quantidade deve ser maior que zero para abater o estoque "+quantidade);

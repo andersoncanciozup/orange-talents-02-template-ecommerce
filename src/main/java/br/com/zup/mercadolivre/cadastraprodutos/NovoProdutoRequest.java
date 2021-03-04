@@ -74,10 +74,8 @@ public class NovoProdutoRequest {
 
 	// 1
 	public Produto toModel(EntityManager manager, Usuario dono) {
-		// 1
 		Categoria categoria = manager.find(Categoria.class, idCategoria);
 
-		// 1
 		return new Produto(nome, quantidade, descricao, valor, categoria, dono,
 				caracteristicas);
 	}
