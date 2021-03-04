@@ -1,4 +1,4 @@
-package br.com.zup.mercadolivre.cadastraprodutos;
+package br.com.zup.mercadolivre.adicionaimagem;
 
 import java.util.List;
 import java.util.Set;

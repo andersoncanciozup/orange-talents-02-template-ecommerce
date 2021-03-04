@@ -17,7 +17,6 @@ import org.springframework.web.server.ResponseStatusException;
 import br.com.zup.mercadolivre.cadastraousuario.Usuario;
 import br.com.zup.mercadolivre.cadastraousuario.UsuarioRepository;
 import br.com.zup.mercadolivre.cadastraprodutos.Produto;
-import br.com.zup.mercadolivre.cadastraprodutos.Uploader;
 
 @RestController
 public class ImagemController {
