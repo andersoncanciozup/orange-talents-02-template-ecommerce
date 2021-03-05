@@ -1,4 +1,4 @@
-package br.com.zup.mercadolivre.cadastrocategorias;
+package br.com.zup.mercadolivre.cadastracategoria;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotBlank;
@@ -6,16 +6,14 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.util.Assert;
 
-import br.com.zup.mercadolivre.compartilhado.ExistsId;
-import br.com.zup.mercadolivre.compartilhado.UniqueValue;
+import br.com.zup.mercadolivre.compartilhado.ValorUnico;
 
 public class NovaCategoriaRequest {
 
 	@NotBlank
-	@UniqueValue(domainClass=Categoria.class,fieldName="nome")
+	@ValorUnico(domainClass=Categoria.class,fieldName="nome")
 	private String nome;	
 	@Positive
-	@ExistsId(domainClass = Categoria.class,fieldName = "id")
 	private Long idCategoriaMae;
 	
 	public void setNome(String nome) {

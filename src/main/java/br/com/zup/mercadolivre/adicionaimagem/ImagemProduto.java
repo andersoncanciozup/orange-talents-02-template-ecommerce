@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.URL;
 
-import br.com.zup.mercadolivre.cadastraprodutos.Produto;
+import br.com.zup.mercadolivre.cadastraproduto.Produto;
 
 @Entity
 public class ImagemProduto {
@@ -77,8 +77,4 @@ public class ImagemProduto {
 		return link;
 	}
 	
-	
-	
-	
-
 }

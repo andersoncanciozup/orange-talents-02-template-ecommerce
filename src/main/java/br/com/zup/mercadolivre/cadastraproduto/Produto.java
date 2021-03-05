@@ -1,9 +1,11 @@
-package br.com.zup.mercadolivre.cadastraprodutos;
+package br.com.zup.mercadolivre.cadastraproduto;
 
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -14,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -24,8 +27,10 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.util.Assert;
 
 import br.com.zup.mercadolivre.adicionaimagem.ImagemProduto;
+import br.com.zup.mercadolivre.adicionaopiniao.Opiniao;
+import br.com.zup.mercadolivre.adicionapergunta.Pergunta;
+import br.com.zup.mercadolivre.cadastracategoria.Categoria;
 import br.com.zup.mercadolivre.cadastraousuario.Usuario;
-import br.com.zup.mercadolivre.cadastrocategorias.Categoria;
 
 @Entity
 public class Produto {
@@ -46,7 +51,7 @@ public class Produto {
 	@Valid
 	@ManyToOne
 	// 1
-	private Usuario dono;
+	private Usuario usuario;
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
 	// 1
 	private Set<CaracteristicaProduto> caracteristicas = new HashSet<>();
@@ -54,11 +59,11 @@ public class Produto {
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
 	private Set<ImagemProduto> imagens = new HashSet<>();
 
-//	@OneToMany(mappedBy = "produto")
-//	@OrderBy("titulo asc")
-//	private SortedSet<Pergunta> perguntas = new TreeSet<>();
-//	@OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
-//	private Set<Opiniao> opinioes = new HashSet<>();
+	@OneToMany(mappedBy = "produto")
+	@OrderBy("titulo asc")
+	private SortedSet<Pergunta> perguntas = new TreeSet<>();
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+	private Set<Opiniao> opinioes = new HashSet<>();
 
 	@Deprecated
 	public Produto() {
@@ -68,7 +73,7 @@ public class Produto {
 	public Produto(@NotBlank String nome, @Positive int quantidade,
 			@NotBlank @Length(max = 1000) String descricao,
 			@NotNull @Positive BigDecimal valor,
-			@NotNull @Valid Categoria categoria, @NotNull @Valid Usuario dono,
+			@NotNull @Valid Categoria categoria, @NotNull @Valid Usuario usuario,
 			@Size(min = 3) @Valid Collection<NovaCaracteristicaRequest> caracteristicas) {
 
 		this.nome = nome;
@@ -76,7 +81,7 @@ public class Produto {
 		this.descricao = descricao;
 		this.valor = valor;
 		this.categoria = categoria;
-		this.dono = dono;
+		this.usuario = usuario;
 		// 1
 		// 1
 		this.caracteristicas.addAll(caracteristicas.stream()
@@ -93,7 +98,7 @@ public class Produto {
 	public String toString() {
 		return "Produto [id=" + id + ", nome=" + nome + ", quantidade="
 				+ quantidade + ", descricao=" + descricao + ", valor=" + valor
-				+ ", categoria=" + categoria + ", dono=" + dono
+				+ ", categoria=" + categoria + ", usuario=" + usuario
 				+ ", caracteristicas=" + caracteristicas + ", imagens="
 				+ imagens + "]";
 	}
@@ -131,12 +136,12 @@ public class Produto {
 		this.imagens.addAll(imagens);
 	}
 
-	public boolean pertenceAoUsuario(Usuario possivelDono) {
-		return this.dono.equals(possivelDono);
+	public boolean pertenceAoUsuario(Usuario possivelusuario) {
+		return this.usuario.equals(possivelusuario);
 	}
 
-	public Usuario getDono() {
-		return this.dono;
+	public Usuario getusuario() {
+		return this.usuario;
 	}
 
 	public String getDescricao() {
@@ -162,14 +167,14 @@ public class Produto {
 				.collect(Collectors.toSet());
 	}
 	
-//	public <T extends Comparable<T>> SortedSet<T> mapeiaPerguntas(Function<Pergunta, T> funcaoMapeadora) {
-//		return this.perguntas.stream().map(funcaoMapeadora)
-//				.collect(Collectors.toCollection(TreeSet :: new));
-//	}
-//
-//	public Opinioes getOpinioes() {
-//		return new Opinioes(this.opinioes);
-//	}
+	public <T extends Comparable<T>> SortedSet<T> mapeiaPerguntas(Function<Pergunta, T> funcaoMapeadora) {
+		return this.perguntas.stream().map(funcaoMapeadora)
+				.collect(Collectors.toCollection(TreeSet :: new));
+	}
+
+	public Opinioes getOpinioes() {
+		return new Opinioes(this.opinioes);
+	}
 
 	public boolean abataEstoque(@Positive int quantidade) {
 		Assert.isTrue(quantidade > 0, "A quantidade deve ser maior que zero para abater o estoque "+quantidade);

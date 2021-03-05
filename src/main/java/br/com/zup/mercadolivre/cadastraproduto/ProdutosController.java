@@ -1,11 +1,11 @@
-package br.com.zup.mercadolivre.cadastraprodutos;
+package br.com.zup.mercadolivre.cadastraproduto;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,15 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.zup.mercadolivre.cadastraousuario.Usuario;
-import br.com.zup.mercadolivre.cadastraousuario.UsuarioRepository;
+import br.com.zup.mercadolivre.compartilhado.UsuarioLogado;
 
 @RestController
 public class ProdutosController {
 
 	@PersistenceContext
 	private EntityManager manager;
-	@Autowired
-	private UsuarioRepository usuarioRepository;
 	
 	@InitBinder(value = "novoProdutoRequest")
 	public void init(WebDataBinder webDataBinder) {
@@ -32,11 +30,11 @@ public class ProdutosController {
 	@PostMapping(value = "/produtos")
 	@Transactional
 	//1
-	public String cria(@RequestBody @Valid NovoProdutoRequest request) {
+	public String cria(@RequestBody @Valid NovoProdutoRequest request, @AuthenticationPrincipal UsuarioLogado usuarioLogado) {
 		
-		Usuario dono = usuarioRepository.findByEmail("alberto@deveficiente.com").get();		
+		Usuario usuario = usuarioLogado.get();
 
-		Produto produto = request.toModel(manager,dono);
+		Produto produto = request.toModel(manager,usuario);
 		
 		manager.persist(produto);
 		return produto.toString();

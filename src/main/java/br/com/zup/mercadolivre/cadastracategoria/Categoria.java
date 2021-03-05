@@ -1,4 +1,4 @@
-package br.com.zup.mercadolivre.cadastrocategorias;
+package br.com.zup.mercadolivre.cadastracategoria;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

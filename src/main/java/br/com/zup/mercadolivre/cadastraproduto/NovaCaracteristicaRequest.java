@@ -1,4 +1,4 @@
-package br.com.zup.mercadolivre.cadastraprodutos;
+package br.com.zup.mercadolivre.cadastraproduto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;

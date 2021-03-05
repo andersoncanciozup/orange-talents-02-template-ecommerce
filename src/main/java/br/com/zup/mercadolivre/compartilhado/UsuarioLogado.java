@@ -14,6 +14,10 @@ import br.com.zup.mercadolivre.cadastraousuario.Usuario;
 
 public class UsuarioLogado implements UserDetails {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Usuario usuario;
 	private User springUserDetails;
 

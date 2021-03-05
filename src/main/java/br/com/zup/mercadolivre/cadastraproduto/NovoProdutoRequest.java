@@ -1,4 +1,4 @@
-package br.com.zup.mercadolivre.cadastraprodutos;
+package br.com.zup.mercadolivre.cadastraproduto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,15 +15,15 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
+import br.com.zup.mercadolivre.cadastracategoria.Categoria;
 import br.com.zup.mercadolivre.cadastraousuario.Usuario;
-import br.com.zup.mercadolivre.cadastrocategorias.Categoria;
 import br.com.zup.mercadolivre.compartilhado.ExistsId;
-import br.com.zup.mercadolivre.compartilhado.UniqueValue;
+import br.com.zup.mercadolivre.compartilhado.ValorUnico;
 
 public class NovoProdutoRequest {
 
 	@NotBlank
-	@UniqueValue(domainClass = Produto.class,fieldName = "nome")
+	@ValorUnico(domainClass = Produto.class,fieldName = "nome")
 	private String nome;
 	@Positive
 	@NotNull
@@ -73,10 +73,10 @@ public class NovoProdutoRequest {
 	}
 
 	// 1
-	public Produto toModel(EntityManager manager, Usuario dono) {
+	public Produto toModel(EntityManager manager, Usuario usuario) {
 		Categoria categoria = manager.find(Categoria.class, idCategoria);
 
-		return new Produto(nome, quantidade, descricao, valor, categoria, dono,
+		return new Produto(nome, quantidade, descricao, valor, categoria, usuario,
 				caracteristicas);
 	}
 

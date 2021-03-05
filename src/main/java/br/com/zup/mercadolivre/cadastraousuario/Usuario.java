@@ -13,8 +13,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 
 @Entity
 public class Usuario {
@@ -24,7 +22,6 @@ public class Usuario {
 	private Long id;
 	private @Email @NotBlank String email;
 	private @NotBlank @Length(min = 6) String senha;
-	//@NotNull
 	@PastOrPresent
 	private LocalDateTime instanteCriacao;
 	
@@ -34,12 +31,10 @@ public class Usuario {
 	}
 
 	public Usuario(@Email @NotBlank String email,
-			@Valid @NotNull SenhaLimpa senhaLimpa) {
-		Assert.isTrue(StringUtils.hasLength(email),"email não pode ser em branco");
-		Assert.notNull(senhaLimpa,"o objeto do tipo senha limpa nao pode ser nulo");	
+			@Valid @NotNull String senha) {
 		
 		this.email = email;
-		this.senha = senhaLimpa.hash();
+		this.senha = senha;
 		this.instanteCriacao = LocalDateTime.now();
 	}
 
@@ -85,7 +80,4 @@ public class Usuario {
 	public Long getId() {
 		return this.id;
 	}
-	
-	
-
 }

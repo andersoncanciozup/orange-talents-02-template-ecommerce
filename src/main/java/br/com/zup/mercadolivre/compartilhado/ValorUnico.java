@@ -12,10 +12,10 @@ import javax.validation.Payload;
 
 
 @Documented
-@Constraint(validatedBy = {UniqueValueValidator.class})
+@Constraint(validatedBy = {ValorUnicoValidator.class})
 @Target({ FIELD})
 @Retention(RUNTIME)
-public @interface UniqueValue {
+public @interface ValorUnico {
 	
 	String message() default "{Já existente no sistema}";
 

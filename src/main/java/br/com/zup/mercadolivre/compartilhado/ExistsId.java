@@ -16,7 +16,7 @@ import javax.validation.Payload;
 @Retention(RUNTIME)
 public @interface ExistsId {
 
-	String message() default "{id Já existente}";
+	String message() default "{id não existente}";
 
 	Class<?>[] groups() default { };
 

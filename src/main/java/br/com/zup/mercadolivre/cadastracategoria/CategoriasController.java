@@ -1,4 +1,4 @@
-package br.com.zup.mercadolivre.cadastrocategorias;
+package br.com.zup.mercadolivre.cadastracategoria;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ public class CategoriasController {
 	@PersistenceContext
 	private EntityManager manager;
 
-	@PostMapping(value = "/api/categorias")
+	@PostMapping(value = "/categorias")
 	@Transactional
 	public String postMethodName(@RequestBody @Valid NovaCategoriaRequest request) {
 		Categoria categoria = request.toModel(manager);

@@ -9,47 +9,37 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.com.zup.mercadolivre.cadastraousuario.Usuario;
-import br.com.zup.mercadolivre.cadastraousuario.UsuarioRepository;
-import br.com.zup.mercadolivre.cadastraprodutos.Produto;
+import br.com.zup.mercadolivre.cadastraproduto.Produto;
+import br.com.zup.mercadolivre.compartilhado.UsuarioLogado;
 
 @RestController
 public class ImagemController {
 	
 	@PersistenceContext
 	private EntityManager manager;
+
 	@Autowired
-	//1
-	private UsuarioRepository usuarioRepository;
-	@Autowired
-	//1
-	private Uploader uploaderFake;
+	private Uploader uploader;
 
 	@PostMapping(value = "/produtos/{id}/imagens")
 	@Transactional
-	//1
-	public String adicionaImagens(@PathVariable("id") Long id,@Valid NovasImagensRequest request) {
-		/*
-		 * 1) enviar imagens para o local onde elas vão ficar
-		 * 2) pegar os links de todas as imagens		 * 
-		 * 3) associar esses links com o produto em questao 
-		 * 4) preciso carregar o produto
-		 * 5) depois que associar eu preciso atualizar a nova versão do produto
-		 */
+	public String adicionaImagens(@PathVariable("id") Long id,@Valid NovasImagensRequest request, @AuthenticationPrincipal UsuarioLogado usuarioLogado) {
 		
-		Usuario dono = usuarioRepository.findByEmail("alberto@deveficiente.com").get();		
+		Usuario usuario = usuarioLogado.get();
 		Produto produto = manager.find(Produto.class, id);
 		
-		if(!produto.pertenceAoUsuario(dono)) {
+		if(!produto.pertenceAoUsuario(usuario)) {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN);
 		}
 		
-		Set<String> links = uploaderFake.envia(request.getImagens());
+		Set<String> links = uploader.envia(request.getImagens());
 		produto.associaImagens(links);
 		
 		manager.merge(produto);
@@ -57,5 +47,4 @@ public class ImagemController {
 		return produto.toString();
 		
 	}
-
 }
