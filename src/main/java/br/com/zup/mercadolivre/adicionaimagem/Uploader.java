@@ -15,7 +15,7 @@ public class Uploader  {
 	public Set<String> envia(List<MultipartFile> imagens) {
 		
 		return imagens.stream()
-				.map(imagem -> "C:\\Users\\Zupper\\Pictures\\Saved Pictures"
+				.map(imagem -> "http://bucket.io/"
 						+ imagem.getOriginalFilename())
 				.collect(Collectors.toSet());
 	}

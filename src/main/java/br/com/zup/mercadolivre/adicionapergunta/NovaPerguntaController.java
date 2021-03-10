@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.zup.mercadolivre.cadastraousuario.Usuario;
 import br.com.zup.mercadolivre.cadastraproduto.Produto;
 import br.com.zup.mercadolivre.compartilhado.UsuarioLogado;
+import br.com.zup.mercadolivre.outrossistemas.GerenciadorEmail;
 
 @RestController
 public class NovaPerguntaController {

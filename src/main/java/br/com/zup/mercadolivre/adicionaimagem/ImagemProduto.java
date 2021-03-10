@@ -39,7 +39,7 @@ public class ImagemProduto {
 
 	@Override
 	public String toString() {
-		return "ImagemProduto [id=" + id + ", link=" + link + "]";
+		return "ImagemProduto [link=" + link + "]";
 	}
 
 	@Override

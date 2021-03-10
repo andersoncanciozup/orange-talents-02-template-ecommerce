@@ -96,7 +96,7 @@ public class Produto {
 
 	@Override
 	public String toString() {
-		return "Produto [id=" + id + ", nome=" + nome + ", quantidade="
+		return "Produto [nome=" + nome + ", quantidade="
 				+ quantidade + ", descricao=" + descricao + ", valor=" + valor
 				+ ", categoria=" + categoria + ", usuario=" + usuario
 				+ ", caracteristicas=" + caracteristicas + ", imagens="
@@ -176,7 +176,7 @@ public class Produto {
 		return new Opinioes(this.opinioes);
 	}
 
-	public boolean abataEstoque(@Positive int quantidade) {
+	public boolean verificaQtdEstoque(@Positive Long quantidade) {
 		Assert.isTrue(quantidade > 0, "A quantidade deve ser maior que zero para abater o estoque "+quantidade);
 		
 		if(quantidade <= this.quantidade) {

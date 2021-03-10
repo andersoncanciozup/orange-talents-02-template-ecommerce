@@ -55,7 +55,7 @@ public class Opiniao {
 
 	@Override
 	public String toString() {
-		return "Opiniao [id=" + id + ", nota=" + nota + ", titulo=" + titulo
+		return "Opiniao [nota=" + nota + ", titulo=" + titulo
 				+ ", descricao=" + descricao + ", produto=" + produto
 				+ ", consumidor=" + consumidor + "]";
 	}

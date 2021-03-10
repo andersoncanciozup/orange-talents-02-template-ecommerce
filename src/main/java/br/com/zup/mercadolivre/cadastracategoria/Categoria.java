@@ -33,7 +33,7 @@ public class Categoria {
 
 	@Override
 	public String toString() {
-		return "Categoria [id=" + id + ", nome=" + nome + ", categoriaMae="
+		return "Categoria [nome=" + nome + ", categoriaMae="
 				+ categoriaMae + "]";
 	}
 	

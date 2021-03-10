@@ -43,7 +43,7 @@ public class Pergunta implements Comparable<Pergunta>{
 
 	@Override
 	public String toString() {
-		return "Pergunta [id=" + id + ", titulo=" + titulo + ", interessada="
+		return "Pergunta [titulo=" + titulo + ", interessada="
 				+ interessada + ", produto=" + produto + "]";
 	}
 

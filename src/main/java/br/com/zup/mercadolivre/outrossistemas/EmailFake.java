@@ -1,4 +1,4 @@
-package br.com.zup.mercadolivre.adicionapergunta;
+package br.com.zup.mercadolivre.outrossistemas;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
