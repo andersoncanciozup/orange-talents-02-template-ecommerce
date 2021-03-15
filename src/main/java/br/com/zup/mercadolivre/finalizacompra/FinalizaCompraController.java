@@ -33,14 +33,13 @@ public class FinalizaCompraController {
 	
 	@PostMapping(value = "/compras")
 	@Transactional
-	public ResponseEntity criaCompra(@RequestBody @Valid NovaCompraRequest request, @AuthenticationPrincipal UsuarioLogado usuarioLogado, UriComponentsBuilder uriComponentsBuilder) throws URISyntaxException {
+	public ResponseEntity<?> criaCompra(@RequestBody @Valid NovaCompraRequest request, @AuthenticationPrincipal UsuarioLogado usuarioLogado, UriComponentsBuilder uriComponentsBuilder) throws URISyntaxException {
 		
 		Produto produtoSelecionado = manager.find(Produto.class, request.getIdProduto());
 		
 		 boolean qtdDisponivel = produtoSelecionado.verificaQtdEstoque(request.getQuantidade());
 		
 		 if (!qtdDisponivel) {
-			 //return ResponseEntity.badRequest().build();
 			 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Quantidade solicitada superior a quantidade em estoque");
 		 }
 		 

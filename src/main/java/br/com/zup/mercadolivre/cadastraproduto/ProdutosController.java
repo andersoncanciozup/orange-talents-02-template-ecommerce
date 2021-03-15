@@ -23,13 +23,11 @@ public class ProdutosController {
 	
 	@InitBinder(value = "novoProdutoRequest")
 	public void init(WebDataBinder webDataBinder) {
-		//1
 		webDataBinder.addValidators(new ProibeCaracteristicaComNomeIgualValidator());
 	}
 
 	@PostMapping(value = "/produtos")
 	@Transactional
-	//1
 	public String cria(@RequestBody @Valid NovoProdutoRequest request, @AuthenticationPrincipal UsuarioLogado usuarioLogado) {
 		
 		Usuario usuario = usuarioLogado.get();

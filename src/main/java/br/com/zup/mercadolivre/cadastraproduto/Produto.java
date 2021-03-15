@@ -45,20 +45,15 @@ public class Produto {
 	@NotNull
 	@Valid
 	@ManyToOne
-	// 1
 	private Categoria categoria;
 	@NotNull
 	@Valid
 	@ManyToOne
-	// 1
 	private Usuario usuario;
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
-	// 1
 	private Set<CaracteristicaProduto> caracteristicas = new HashSet<>();
-	// 1
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
 	private Set<ImagemProduto> imagens = new HashSet<>();
-
 	@OneToMany(mappedBy = "produto")
 	@OrderBy("titulo asc")
 	private SortedSet<Pergunta> perguntas = new TreeSet<>();
@@ -82,15 +77,12 @@ public class Produto {
 		this.valor = valor;
 		this.categoria = categoria;
 		this.usuario = usuario;
-		// 1
-		// 1
 		this.caracteristicas.addAll(caracteristicas.stream()
 				.map(caracteristica -> caracteristica.toModel(this))
 				.collect(Collectors.toSet()));
 
-		// 1
 		Assert.isTrue(this.caracteristicas.size() >= 3,
-				"Todo produto precisa ter no mínimo 3 ou mais características");
+				"O produto precisa ter no mínimo 3 características");
 
 	}
 
@@ -177,7 +169,7 @@ public class Produto {
 	}
 
 	public boolean verificaQtdEstoque(@Positive Long quantidade) {
-		Assert.isTrue(quantidade > 0, "A quantidade deve ser maior que zero para abater o estoque "+quantidade);
+		Assert.isTrue(quantidade > 0, "A quantidade deve ser maior que zero para abater o estoque "+ quantidade);
 		
 		if(quantidade <= this.quantidade) {
 			this.quantidade-=quantidade;

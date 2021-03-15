@@ -31,7 +31,7 @@ public class CompraTest {
 	 */
 	
 	@Test
-	@DisplayName("aceitar uma transacao com sucesso")
+	@DisplayName("aceita uma transacao com sucesso")
 	void deveriaAdicionarUmaTransacaoComSucesso() {
 		Compra novaCompra = novaCompra();
 		RetornoGatewayPagamento retornoGatewayPagamento = (compra) -> {
@@ -81,7 +81,7 @@ public class CompraTest {
 	
 	private Compra novaCompra() {
 		Categoria categoria = new Categoria("teste");
-		Usuario dono = new Usuario("email@email.com", "123456");
+		Usuario vendendor = new Usuario("vendendor@email.com", "0987654321");
 		Collection<NovaCaracteristicaRequest> caracteristicas = new ArrayList<>();
 		caracteristicas.add(new NovaCaracteristicaRequest("nome", "descricao"));
 		caracteristicas	
@@ -90,9 +90,10 @@ public class CompraTest {
 				.add(new NovaCaracteristicaRequest("nome2", "descricao"));
 
 		Produto produtoASerComprado = new Produto("teste", 100, "descricao",
-				BigDecimal.TEN, categoria, dono, caracteristicas);
+				new BigDecimal(129.37), categoria, vendendor, caracteristicas);
+		
 
-		Usuario comprador = new Usuario("comprador@email.com", "1234567");
+		Usuario comprador = new Usuario("comprador@email.com", "1234567890");
 
 		GatewayPagamento gatewayPagamento = GatewayPagamento.pagseguro;
 		

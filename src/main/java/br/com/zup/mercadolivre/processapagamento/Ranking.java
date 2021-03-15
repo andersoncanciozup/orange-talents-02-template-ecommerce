@@ -13,7 +13,7 @@ public class Ranking implements EventoCompraSucesso{
 
 	@Override
 	public void executa(Compra compra) {
-		Assert.isTrue(compra.processadaComSucesso(),"opa opa opa compra nao processada com sucesso "+compra);
+		Assert.isTrue(compra.processadaComSucesso(),"Compra não processada com sucesso "+compra);
 		
 		RestTemplate restTemplate = new RestTemplate();
 		Map<String, Object> request = Map.of("idCompra", compra.getId(),

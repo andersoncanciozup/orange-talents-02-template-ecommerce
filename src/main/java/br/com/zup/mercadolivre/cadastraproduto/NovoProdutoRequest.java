@@ -39,7 +39,7 @@ public class NovoProdutoRequest {
 	private Long idCategoria;
 	@Size(min = 3)
 	@Valid
-	// 1
+
 	private List<NovaCaracteristicaRequest> caracteristicas = new ArrayList<>();
 
 	public NovoProdutoRequest(@NotBlank String nome, @Positive int quantidade,
@@ -72,7 +72,6 @@ public class NovoProdutoRequest {
 				+ caracteristicas + "]";
 	}
 
-	// 1
 	public Produto toModel(EntityManager manager, Usuario usuario) {
 		Categoria categoria = manager.find(Categoria.class, idCategoria);
 
@@ -83,10 +82,10 @@ public class NovoProdutoRequest {
 	public Set<String> buscaCaracteristicasIguais() {
 		HashSet<String> nomesIguais = new HashSet<>();
 		HashSet<String> resultados = new HashSet<>();
-		// 1
+		
 		for (NovaCaracteristicaRequest caracteristica : caracteristicas) {
 			String nome = caracteristica.getNome();
-			// 1
+			
 			if (!nomesIguais.add(nome)) {
 				resultados.add(nome);
 			}
